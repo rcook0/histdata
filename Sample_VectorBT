@@ -1,0 +1,15 @@
+import pandas as pd
+from VectorBTHelper import run_vectorbt_backtest
+
+# Example simple strategy
+def my_signal_func(df):
+    return (df['Close'] > df['Close'].rolling(20).mean()).astype(int)
+
+# Run on a single file
+results = run_vectorbt_backtest('US30.csv', my_signal_func, cash=10000, plot=False)
+print(results)
+
+# Batch run
+files = ['US30.csv', 'BTCUSD.csv', 'EURUSD.csv']
+results = run_vectorbt_backtest(files, my_signal_func, batch=True, cash=50000)
+print(results)
