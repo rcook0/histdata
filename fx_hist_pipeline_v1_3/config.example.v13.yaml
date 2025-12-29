@@ -1,0 +1,26 @@
+postgres:
+  dsn: postgresql://user:pass@localhost:5432/fx
+  table: fx_m1
+
+symbols:
+  EURUSD:
+    input_globs: ["./data/EURUSD/*.csv"]
+    impute_max: 5
+    dukascopy_max: 60
+    prefilter:
+      enabled: true
+      sessions:
+        - { name: LDN, tz: Europe/London,    start: "07:00", end: "17:00" }
+        - { name: NY,  tz: America/New_York, start: "08:00", end: "17:00" }
+      qc:
+        min_fill_ratio: 0.97
+        min_bars_abs: 58
+    out_csv: "./work/EURUSD_v13.csv"
+
+  GBPJPY:
+    input_globs: ["./data/GBPJPY/*.csv"]
+    impute_max: 5
+    dukascopy_max: 60
+    prefilter:
+      enabled: false
+    out_csv: "./work/GBPJPY_v13.csv"
